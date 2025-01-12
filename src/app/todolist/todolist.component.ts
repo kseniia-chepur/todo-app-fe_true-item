@@ -94,7 +94,14 @@ export class TodolistComponent implements OnInit {
     });
   }
 
-  handleSubmit(formData: NgForm) {
-    console.log(formData);
+  handleSubmit(form: NgForm) {
+    const description = form.value.todo;
+
+    this.todoService.createTodo({ description }).subscribe({
+      next: (data) => this.todos.push(data),
+      error: (error) => console.error(error.message),
+    });
+
+    form.reset();
   }
 }

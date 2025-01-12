@@ -12,7 +12,7 @@ export class TodoService {
   private http = inject(HttpClient);
   private apiUrl = 'http://localhost:3005';
 
-  createTodo(todoDescription: string): Observable<Todo> {
+  createTodo(todoDescription: Partial<Todo>): Observable<Todo> {
     return this.http
       .post<ApiResponse>(this.apiUrl, todoDescription)
       .pipe(map((response) => response.todo));
