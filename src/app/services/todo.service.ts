@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { Todo } from '../interface/todo';
-import { ApiResponse } from '../interface/apiResponse';
-import { ApiGetResponse } from '../interface/apiGetResponse';
+import { Todo } from '../interfaces/todo';
+import { ApiResponse } from '../interfaces/apiResponse';
+import { ApiGetResponse } from '../interfaces/apiGetResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +31,6 @@ export class TodoService {
   }
 
   deleteTodo(id: string): Observable<void> {
-    return this.http.delete<void>(this.apiUrl + `${id}`);
+    return this.http.delete<void>(this.apiUrl + `/${id}`);
   }
 }
