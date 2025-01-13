@@ -2,7 +2,7 @@
   <h1 class="title">To-Do List</h1>
   <form class="form" #todoForm="ngForm" (ngSubmit)="handleSubmit(todoForm)">
     <mat-form-field class="form-field" floatLabel="always">
-      <mat-label>New Todo</mat-label>
+      <mat-label>New To-Do</mat-label>
       <input matInput type="text" ngModel name="todo" id="todo" required />
       <mat-hint *ngIf="todoForm.invalid && todoForm.dirty"
         >Todo description is required</mat-hint
@@ -15,20 +15,19 @@
         type="submit"
         [disabled]="todoForm.invalid"
       >
-        Add Task
+        Add To-Do
       </button>
     </div>
   </form>
-</div>
-<mat-spinner [diameter]="70" *ngIf="isLoading"></mat-spinner>
+  <mat-spinner class="spinner" [diameter]="70" *ngIf="isLoading"></mat-spinner>
 
-<table *ngIf="!isLoading">
+<table class="table" *ngIf="!isLoading">
   <tr>
-    <th>Description</th>
-    <th>Status</th>
-    <th>Edit</th>
-    <th>Save</th>
-    <th>Delete</th>
+    <th class="column-header">Description</th>
+    <th class="column-header">Status</th>
+    <th class="column-header">Edit</th>
+    <th class="column-header">Save</th>
+    <th class="column-header">Delete</th>
   </tr>
 
   @for (todo of todos; track todo._id) {
@@ -42,6 +41,7 @@
             name="todo-edit"
             [id]="todo._id"
             [(ngModel)]="todo.description"
+            [ngClass]="{'completed': !!todo.isCompleted }"
             [readonly]="!todo.isEditable"
             required
           />
@@ -90,3 +90,4 @@
   </tr>
   }
 </table>
+</div>

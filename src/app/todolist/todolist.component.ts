@@ -1,17 +1,23 @@
-import { Component, inject, OnInit, DestroyRef } from '@angular/core';
-import { Todo } from '../interfaces/todo';
+import {
+  Component,
+  inject,
+  OnInit,
+  DestroyRef,
+} from '@angular/core';
+
 import { TodoService } from '../services/todo.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-
 import {
   MatCheckboxChange,
   MatCheckboxModule,
 } from '@angular/material/checkbox';
 import { CommonModule } from '@angular/common';
+import { Todo } from '../interface/todo';
 
 @Component({
   selector: 'app-todolist',
@@ -22,6 +28,7 @@ import { CommonModule } from '@angular/common';
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
+    MatButtonModule,
     MatProgressSpinnerModule,
   ],
   templateUrl: './todolist.component.html',

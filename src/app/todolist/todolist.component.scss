@@ -1,0 +1,95 @@
+@use "@angular/material" as mat;
+@use "./../../styles.scss" as styles;
+
+$dark-yellow-c: #ffc107;
+$dark-cyan-c: #009688;
+$border: solid mat.get-theme-color(styles.$default-theme, primary, 80);
+$border-r: 15px;
+$box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+  rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+
+.container {
+  margin: 30px auto;
+  padding: 15px 35px;
+  box-shadow: $box-shadow;
+  border-radius: $border-r;
+  border: 3px $border;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title {
+  font-family: "Montserrat", serif;
+  text-align: center;
+  letter-spacing: 2px;
+  color: mat.get-theme-color(styles.$default-theme, primary);
+  font-variant: small-caps;
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: $box-shadow;
+  border-radius: $border-r;
+  margin-bottom: 20px;
+  padding-block: 25px;
+  border: 2px $border;
+
+  &-field {
+    width: 90%;
+  }
+
+  &-actions {
+    margin-top: 20px;
+  }
+
+  &-button {
+    padding-inline: 40px;
+    font-size: 1.1rem;
+  }
+}
+
+.spinner {
+align-self: center;
+}
+
+.column-header {
+  font-family: "Montserrat", serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+  color: mat.get-theme-color(styles.$default-theme, primary, 30);
+  text-decoration: underline;
+}
+
+th, td {
+  padding: 20px;
+  text-align: center;
+}
+
+th:first-child, td:first-child {
+  min-width: 300px;
+}
+
+.mat-mdc-raised-button.edit-button {
+  color: $dark-yellow-c;
+}
+
+.mat-mdc-raised-button.save-button {
+  color: $dark-cyan-c;
+}
+
+.mat-mdc-raised-button.delete-button {
+  color: mat.get-theme-color(styles.$default-theme, primary, 30);
+}
+
+ .mdc-text-field__input {
+  min-width: 300px;
+}
+
+.mat-mdc-form-field-input-control.completed {
+  text-decoration: line-through;
+}
