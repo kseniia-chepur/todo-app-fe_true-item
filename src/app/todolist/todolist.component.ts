@@ -1,9 +1,12 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, DestroyRef } from '@angular/core';
 import { Todo } from '../interfaces/todo';
 import { TodoService } from '../services/todo.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
 import {
   MatCheckboxChange,
   MatCheckboxModule,
@@ -19,6 +22,7 @@ import { CommonModule } from '@angular/common';
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './todolist.component.html',
   styleUrl: './todolist.component.scss',
@@ -27,42 +31,59 @@ export class TodolistComponent implements OnInit {
   private todoService = inject(TodoService);
 
   todos: Todo[] = [];
+  isLoading = true;
+
+  private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
-    this.todoService.getTodos().subscribe({
-      next: (data) => (this.todos = data),
-      error: (error) => console.error(error.message),
-    });
+    this.isLoading = true;
+
+    this.todoService
+      .getTodos()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (data) => {
+          this.todos = data;
+        },
+        error: (error) => console.error(error.message),
+      })
+      .add(() => (this.isLoading = false));
   }
 
   handleStatusChange(event: MatCheckboxChange, id: string) {
     const status = event.checked;
 
-    this.todoService.updateTodo(id, { isCompleted: status }).subscribe({
-      next: (data) => {
-        this.todos = this.todos.map((todo) => {
-          if (todo._id === id) {
-            todo = data;
-          }
-          return todo;
-        });
-      },
-      error: (error) => console.error(error.message),
-    });
+    this.todoService
+      .updateTodo(id, { isCompleted: status })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (data) => {
+          this.todos = this.todos.map((todo) => {
+            if (todo._id === id) {
+              todo = data;
+            }
+            return todo;
+          });
+        },
+        error: (error) => console.error(error.message),
+      });
   }
 
   handleEdit(id: string) {
-    this.todoService.updateTodo(id, { isEditable: true }).subscribe({
-      next: (data) => {
-        this.todos = this.todos.map((todo) => {
-          if (todo._id === id) {
-            todo = data;
-          }
-          return todo;
-        });
-      },
-      error: (error) => console.error(error.message),
-    });
+    this.todoService
+      .updateTodo(id, { isEditable: true })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (data) => {
+          this.todos = this.todos.map((todo) => {
+            if (todo._id === id) {
+              todo = data;
+            }
+            return todo;
+          });
+        },
+        error: (error) => console.error(error.message),
+      });
   }
 
   handleSave(id: string) {
@@ -71,6 +92,7 @@ export class TodolistComponent implements OnInit {
     if (description) {
       this.todoService
         .updateTodo(id, { description, isEditable: false })
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe({
           next: (data) => {
             this.todos = this.todos.map((todo) => {
@@ -86,21 +108,27 @@ export class TodolistComponent implements OnInit {
   }
 
   handleDelete(id: string) {
-    this.todoService.deleteTodo(id).subscribe({
-      next: () => {
-        this.todos = this.todos.filter((todo) => todo._id !== id);
-      },
-      error: (error) => console.error(error.message),
-    });
+    this.todoService
+      .deleteTodo(id)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.todos = this.todos.filter((todo) => todo._id !== id);
+        },
+        error: (error) => console.error(error.message),
+      });
   }
 
   handleSubmit(form: NgForm) {
     const description = form.value.todo;
 
-    this.todoService.createTodo({ description }).subscribe({
-      next: (data) => this.todos.push(data),
-      error: (error) => console.error(error.message),
-    });
+    this.todoService
+      .createTodo({ description })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (data) => this.todos.push(data),
+        error: (error) => console.error(error.message),
+      });
 
     form.reset();
   }

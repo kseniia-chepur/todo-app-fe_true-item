@@ -20,8 +20,9 @@
     </div>
   </form>
 </div>
+<mat-spinner [diameter]="70" *ngIf="isLoading"></mat-spinner>
 
-<table>
+<table *ngIf="!isLoading">
   <tr>
     <th>Description</th>
     <th>Status</th>
