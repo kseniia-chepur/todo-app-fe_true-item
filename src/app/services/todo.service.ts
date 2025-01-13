@@ -4,13 +4,14 @@ import { map, Observable } from 'rxjs';
 import { Todo } from '../interfaces/todo';
 import { ApiResponse } from '../interfaces/apiResponse';
 import { ApiGetResponse } from '../interfaces/apiGetResponse';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3005';
+  private apiUrl = environment.API_URL;
 
   createTodo(todoDescription: Partial<Todo>): Observable<Todo> {
     return this.http
