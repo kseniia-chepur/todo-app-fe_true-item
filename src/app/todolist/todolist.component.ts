@@ -119,9 +119,7 @@ export class TodolistComponent implements OnInit {
       .deleteTodo(id)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: () => {
-          this.todos = this.todos.filter((todo) => todo._id !== id);
-        },
+        next: () => this.todos = this.todos.filter((todo) => todo._id !== id),
         error: (error) => console.error(error.message),
       });
   }
@@ -133,7 +131,7 @@ export class TodolistComponent implements OnInit {
       .createTodo({ description })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: (data) => this.todos.push(data),
+        next: (data) => this.todos.unshift(data),
         error: (error) => console.error(error.message),
       });
 
