@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { provideHttpClient, HttpClient } from '@angular/common/http';
 import { TodoService } from './todo.service';
-import { Todo } from '../interface/todo';
+import { Todo } from '../interfaces/todo';
 import { environment } from '../../environments/environment';
 import { of } from 'rxjs';
-import { ApiResponse } from '../interface/apiResponse';
-import { ApiGetResponse } from '../interface/apiGetResponse';
+import { ApiResponse } from '../interfaces/apiResponse';
+import { ApiGetResponse } from '../interfaces/apiGetResponse';
 
 describe('TodoService', () => {
   let service: TodoService;

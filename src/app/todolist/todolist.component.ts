@@ -16,7 +16,7 @@ import {
   MatCheckboxModule,
 } from '@angular/material/checkbox';
 import { CommonModule } from '@angular/common';
-import { Todo } from '../interface/todo';
+import { Todo } from '../interfaces/todo';
 
 @Component({
   selector: 'app-todolist',
