@@ -2,7 +2,7 @@
   <h1 class="title">To-Do List</h1>
   <form class="form" #todoForm="ngForm" (ngSubmit)="handleSubmit(todoForm)">
     <mat-form-field class="form-field" floatLabel="always">
-      <mat-label>New To-Do</mat-label>
+      <mat-label>New Task</mat-label>
       <input matInput type="text" ngModel name="todo" id="todo" required />
       <mat-hint *ngIf="todoForm.invalid && todoForm.dirty"
         >Todo description is required</mat-hint
@@ -15,7 +15,7 @@
         type="submit"
         [disabled]="todoForm.invalid"
       >
-        Add To-Do
+        Add Task
       </button>
     </div>
   </form>

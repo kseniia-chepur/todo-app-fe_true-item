@@ -4,7 +4,6 @@ import {
   OnInit,
   DestroyRef,
 } from '@angular/core';
-
 import { TodoService } from '../services/todo.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -125,6 +124,8 @@ export class TodolistComponent implements OnInit {
   }
 
   handleSubmit(form: NgForm) {
+    // event.preventDefault();
+
     const description = form.value.todo;
 
     this.todoService
