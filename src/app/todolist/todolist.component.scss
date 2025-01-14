@@ -54,23 +54,25 @@ $box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
 }
 
 .spinner {
-align-self: center;
+  align-self: center;
 }
 
 .column-header {
   font-family: "Montserrat", serif;
-  font-size: 1.2rem;
+  font-size: 1.05rem;
   letter-spacing: 0.5px;
   color: mat.get-theme-color(styles.$default-theme, primary, 30);
   text-decoration: underline;
 }
 
-th, td {
+th,
+td {
   padding: 15px 20px;
   text-align: center;
 }
 
-th:first-child, td:first-child {
+th:first-child,
+td:first-child {
   min-width: 300px;
 }
 
@@ -86,10 +88,37 @@ th:first-child, td:first-child {
   color: mat.get-theme-color(styles.$default-theme, primary, 30);
 }
 
- .mdc-text-field__input {
+.mdc-text-field__input {
   min-width: 300px;
 }
 
 .mat-mdc-form-field-input-control.completed {
   text-decoration: line-through;
+}
+
+@media (max-width: 1024px) {
+  .container,
+  th,
+  td {
+    padding-inline: 15px;
+  }
+
+  th:first-child,
+  td:first-child,
+  .mdc-text-field__input {
+    width: fit-content;
+  }
+}
+
+@media (max-width: 768px) {
+  .container,
+  th,
+  td {
+    padding-inline: 10px;
+  }
+
+  .form {
+    width: 95%;
+    align-self: center;
+  }
 }
